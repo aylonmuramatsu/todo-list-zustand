@@ -1,37 +1,31 @@
 
 
 import './App.css';
-import {useTodo} from '~/store/useTodo'
-const TodoItem = ({ id, message, done, updateTodo }) => (
-  <div className="p-2">
-    <input type="checkbox" checked={done} onChange={() => {updateTodo({id, done: !done})}}/>
-    <span className="ml-2">{message}</span>
-  </div>
-)
+import { useTodo } from '~/store/useTodo'
+import { TodoList } from './components/TodoList';
+
+
 function App() {
-  const {todo, addTodo, updateTodo} = useTodo();
+  const { addTodo } = useTodo();
   const onSubmit = (evt) => {
-    evt.preventDefault();    
+    evt.preventDefault();
     addTodo(evt.target.activity.value);
     evt.target.activity.value = '';
   }
   return (
-    <>
+    <div className="p-4 sm:p-14 bg-zinc-300  w-full h-screen">
       <form onSubmit={onSubmit}>
-      <input className="flex w-full p-2 border-teal-500 shadow-teal-50/100" id="activity" name="activity" placeholder="digite a atividade"/>
-      <button type="submit">Adiciona Ae Rapa</button>
+        <div className="flex flex-row gap-x-4">
+          <input className="flex-grow p-2 px-4 border-2 shadow shadow-teal-500/50 rounded-full outline-none" id="activity" name="activity" placeholder="Digite a atividade" />
+          <button className="md:hidden bg-teal-500 text-white rounded-full font-bold px-4" type="submit">+</button>
+          <button className="hidden md:block bg-teal-500 text-white rounded-full font-bold px-4" type="submit">Adiciona Ae Rapa</button>
+        </div>
       </form>
-      <h1 className="text-lg font-bold text-red p-2">
+      <h1 className="text-lg font-bold text-red my-2">
         Lista de Tarefas
       </h1>
-      <div>
-        {
-          todo.map((item, index) => (
-            <TodoItem key={index} {...item} updateTodo={updateTodo}/>
-          ))
-        }
-      </div>
-    </>
+      <TodoList/>
+    </div>
   );
 }
 
