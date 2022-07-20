@@ -9,11 +9,7 @@ function App() {
   const { addTodo } = useTodo();
   const onSubmit = (evt) => {
     evt.preventDefault();
-    const message = evt.target.activity.value;
-    if(!message) {
-      return;
-    }
-    addTodo(message);
+    addTodo(evt.target.activity.value);
     evt.target.activity.value = '';
   }
   return (
